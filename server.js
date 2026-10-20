@@ -10,7 +10,7 @@ app.use(express.json());
 // HTML/JS/CSS கோப்புகளை பிரவுசருக்கு அனுப்ப
 app.use(express.static(__dirname));
 
-const PORT = 8080;
+const PORT = process.env.PORT ||8080;
 
 app.post('/api/correct', async (req, res) => {
     const { text } = req.body;
