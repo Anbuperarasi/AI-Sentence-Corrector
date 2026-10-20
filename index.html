@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Sentence Corrector</title>
+    <!-- Font Awesome CDN for Copy Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 550px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: none;
+            font-size: 16px;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #007bff;
+        }
+
+        button.correct-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        button.correct-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #eef6ff;
+            border-left: 5px solid #007bff;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .result-header h3 {
+            font-size: 16px;
+            color: #007bff;
+        }
+
+        #copyBtn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #5f6368;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        #copyBtn:hover {
+            background-color: #d0e3ff;
+            color: #0056b3;
+        }
+
+        #correctedOutput {
+            font-size: 16px;
+            color: #333;
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>✨ AI Sentence Corrector</h2>
+        <textarea id="inputText" placeholder="Type your sentence here..."></textarea>
+        <button class="correct-btn" onclick="correctSentence()">Correct Sentence</button>
+
+        <div class="result-box" id="resultBox">
+            <div class="result-header">
+                <h3>Corrected Version:</h3>
+                <button id="copyBtn" onclick="copyText()" title="Copy text">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+            </div>
+            <p id="correctedOutput"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function copyText() {
+            const textToCopy = document.getElementById('correctedOutput').innerText;
+            if (!textToCopy) return;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const copyIcon = document.querySelector('#copyBtn i');
+                copyIcon.className = 'fa-solid fa-check';
+                setTimeout(() => {
+                    copyIcon.className = 'fa-regular fa-copy';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
